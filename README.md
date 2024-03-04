@@ -9,7 +9,9 @@ Welcome to my collection of dotfiles! These dotfiles contain configurations for 
 - [Usage](#usage)
 - [Updating](#updating)
 - [Contributing](#contributing)
+   - WIP since they are my .dotfiles
 - [License](#license)
+   - Literally no idea how to set this up, probably the next thing to do in terms of this README.md
 
 ## Prerequisites
 
