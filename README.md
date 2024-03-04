@@ -1,4 +1,30 @@
-# .dotfiles
+# My .dotfiles
 
-- March 2, 2024:
-	Tried fixing lazy.nvim from kickstart.nvim; still not working.
+Welcome to my collection of dotfiles! These dotfiles contain configurations for various tools and programs that I use on a daily basis. This README provides an overview of how to use and manage these dotfiles effectively.
+
+## Table of Contents
+
+- [Prerequisites](#prerequisites)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Updating](#updating)
+- [Contributing](#contributing)
+- [License](#license)
+
+## Prerequisites
+
+Before using these dotfiles, ensure that you have the following prerequisites installed on your system:
+
+- Git
+- Stow (optional, for managing dotfiles)
+- Neovim (optional, for using the Neovim configuration)
+
+## Installation
+
+To install these dotfiles on your system, follow these steps:
+
+1. Clone this repository to your home directory:
+
+   ```bash
+   git clone https://github.com/your-username/.dotfiles.git ~/.dotfiles
+
