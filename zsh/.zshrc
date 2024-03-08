@@ -6,9 +6,6 @@ export PATH="$HOME/.dotfiles/neovim/bin:$PATH"
 
 alias vim='nvim'
 
-# JAVA
-export JAVA_HOME=/usr/lib/jvm/default-java
-
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
