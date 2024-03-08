@@ -4,6 +4,8 @@
 # NEOVIM
 export PATH="$HOME/.dotfiles/neovim/bin:$PATH"
 
+alias vim='nvim'
+
 # JAVA
 export JAVA_HOME=/usr/lib/jvm/default-java
 
