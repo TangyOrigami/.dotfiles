@@ -6,6 +6,8 @@ export PATH="$HOME/.dotfiles/neovim/bin:$PATH"
 
 alias vim='nvim'
 alias inj='~/java/idea-IC-233.14475.28/bin/idea.sh'
+alias javal='java-algs4'
+alias javalc='javac-algs4'
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
