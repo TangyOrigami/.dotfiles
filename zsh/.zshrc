@@ -8,7 +8,7 @@ alias vim='nvim'
 alias inj='~/java/idea-IC-233.14475.28/bin/idea.sh'
 alias javal='java-algs4'
 alias javalc='javac-algs4'
-
+alias afk-time='go run ~/personal-projects/afka-timer/main.go'
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
