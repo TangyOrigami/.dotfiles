@@ -7,13 +7,27 @@ import (
 	"time"
 )
 
+type Task struct {
+	Title     string
+	StartTime time.Time
+	EndTime   time.Duration
+}
+
+func (r Task) ElapsedTime() int {
+	return int(r.EndTime) / 1000000000
+}
+
 func main() {
 	reader := bufio.NewReader(os.Stdin)
 	start := time.Now()
 
-	text, _ := reader.ReadString('\n')
-	elapsed := time.Since(start)
-	elapsed = elapsed / 1000000000
+	taskTitle, _ := reader.ReadString('\n')
 
-	fmt.Printf("Took: %d, Wrote: %s", elapsed, text)
+	task := Task{
+		Title:     taskTitle,
+		StartTime: start,
+		EndTime:   time.Since(start),
+	}
+
+	fmt.Printf("Title: %s\nElapsed Time: %d\n", task.Title, task.ElapsedTime())
 }
