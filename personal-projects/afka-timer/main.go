@@ -3,6 +3,7 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"log"
 	"os"
 	"time"
 )
@@ -13,6 +14,12 @@ type Task struct {
 	EndTime   time.Duration
 }
 
+func check(e error) {
+	if e != nil {
+		log.Panic(e)
+	}
+}
+
 func (r Task) ElapsedTime() int {
 	return int(r.EndTime) / 1000000000
 }
@@ -21,7 +28,8 @@ func main() {
 	reader := bufio.NewReader(os.Stdin)
 	start := time.Now()
 
-	taskTitle, _ := reader.ReadString('\n')
+	taskTitle, err := reader.ReadString('\n')
+	check(err)
 
 	task := Task{
 		Title:     taskTitle,
