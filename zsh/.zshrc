@@ -4,7 +4,7 @@
 # NEOVIM
 export PATH="$HOME/.dotfiles/neovim/bin:$PATH"
 
-alias vim='nvim'
+alias vim='~/.dotfiles/nvim-linux64/bin/nvim'
 alias inj='~/java/idea-IC-233.14475.28/bin/idea.sh'
 alias javal='java-algs4'
 alias javalc='javac-algs4'
