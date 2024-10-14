@@ -9,9 +9,9 @@ Welcome to my collection of dotfiles! These dotfiles contain configurations for 
 - [Usage](#usage)
 - [Updating](#updating)
 - [Contributing](#contributing)
-   - WIP since they are my .dotfiles
+   - This is for me, if you like it great if you don't. Uh. Ligma.
 - [License](#license)
-   - Literally no idea how to set this up, probably the next thing to do in terms of this README.md
+   - I ain't got time for licenses bro.
 
 ## Prerequisites
 
@@ -30,8 +30,27 @@ To install these dotfiles on your system, follow these steps:
    ```bash
    git clone https://github.com/your-username/.dotfiles.git ~/.dotfiles
    ```
+2. There are some extra steps that are better detailed on the original repo's for their respective projects, they might not all be linked as submodules. Follow the steps detailed in their repos and place them where they are referenced in the file tree:
+   a. [neovim](https://github.com/neovim/neovim)
+   b. [kickstart.nvim](https://github.com/nvim-lua/kickstart.nvim) 
 
-2. Use stow to create symlinks:
+3. I use ```bash stow``` to create symlinks to my configs. I'm still working on an install script to make this process even easier but for now this executable should stow everything in the ."dotfiles" directory for you:
 
    ```bash
+   ./stow-util.sh
    ```
+
+4. Make sure you call ```bash source``` on .conf and .*rc files[^1]:
+
+   ```bash
+   source ~/.dotfiles/bash/.bashrc
+   ```
+   ```bash
+   source ~/.dotfiles/tmux/.tmux.conf
+   ```
+   ```bash
+   source ~/.dotfiles/zsh/.zshrc
+   source ~/.dotfiles/zsh/.zshrc.pre-oh-my-zsh
+   ```
+
+   [^1]NOTE: I don't use zsh anymore, I'm sticking to bash.

@@ -2,7 +2,7 @@
 
 cd ~/.dotfiles || exit
 
-sourceable=("bash" "tmux" "zsh")
+sourceable=("bash" "tmux")
 
 packages=$(ls -d */)
 

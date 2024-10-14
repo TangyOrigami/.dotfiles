@@ -2,8 +2,8 @@
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 # ALIASES
-alias vim="~/.config/nvim/bin/nvim -u ~/.config/nvim/kickstart.nvim/init.lua"
-alias nvim="~/.config/nvim/bin/nvim -u ~/.config/nvim/kickstart.nvim/init.lua"
+alias vim="~/.config/neovim/build/bin/nvim -u ~/.config/neovim/kickstart.nvim/init.lua"
+alias nvim="~/.config/neovim/build/bin/nvim -u ~/.config/neovim/kickstart.nvim/init.lua"
 alias tx="tmux"
 alias g="git"
 alias mac="~/run-macos.sh"
