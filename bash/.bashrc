@@ -6,6 +6,7 @@ alias vim="~/.config/nvim/bin/nvim -u ~/.config/nvim/kickstart.nvim/init.lua"
 alias nvim="~/.config/nvim/bin/nvim -u ~/.config/nvim/kickstart.nvim/init.lua"
 alias tx="tmux"
 alias g="git"
+alias mac="~/run-macos.sh"
 # This is useful if you're using WSL and you change files interchangeably between WINDOWS and WSL
 alias win="echo /mnt/c/Users/"
 
