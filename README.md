@@ -30,8 +30,8 @@ To install these dotfiles on your system, follow these steps:
    git clone https://github.com/TangyOrigami/.dotfiles.git ~/.dotfiles
    ```
 2. There are some extra steps that are better detailed on the original repo's for their respective projects, they're linked as submodules but in case you missed them here are the links. Follow the steps detailed in their repos and place them where they are referenced in the file tree:
-   - a. [neovim](https://github.com/neovim/neovim)
-   - b. [kickstart.nvim](https://github.com/nvim-lua/kickstart.nvim)
+   - [neovim](https://github.com/neovim/neovim)
+   - [kickstart.nvim](https://github.com/nvim-lua/kickstart.nvim)
 
 3. I use ```stow``` to create symlinks to my configs. I'm still working on an install script to make this process even easier but for now this executable should stow everything in the ."dotfiles" directory for you:
 
