@@ -49,7 +49,7 @@ To install these dotfiles on your system, follow these steps:
    ```bash
    source ~/.dotfiles/tmux/.tmux.conf
    ```
-   zsh[^1] :
+   zsh[^1]:
    ```bash
    source ~/.dotfiles/zsh/.zshrc
    source ~/.dotfiles/zsh/.zshrc.pre-oh-my-zsh
