@@ -29,4 +29,9 @@ To install these dotfiles on your system, follow these steps:
 
    ```bash
    git clone https://github.com/your-username/.dotfiles.git ~/.dotfiles
+   ```
 
+2. Use stow to create symlinks:
+
+   ```bash
+   ```
