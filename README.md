@@ -19,8 +19,6 @@ Before using these dotfiles, ensure that you have the following prerequisites in
 
 - git
 - stow
-- neovim
-- kickstart.neovim
 
 ## Installation
 
@@ -41,17 +39,20 @@ To install these dotfiles on your system, follow these steps:
    ./stow-util.sh
    ```
 
-4. Make sure you call ```source``` on .conf and .*rc files [^1] :
+4. Make sure you call ```source``` on .conf and .*rc files :
 
+   bash:
    ```bash
    source ~/.dotfiles/bash/.bashrc
    ```
+   tmux:
    ```bash
    source ~/.dotfiles/tmux/.tmux.conf
    ```
+   zsh[^1] :
    ```bash
    source ~/.dotfiles/zsh/.zshrc
    source ~/.dotfiles/zsh/.zshrc.pre-oh-my-zsh
    ```
 
-   [^1] I don't use zsh anymore, I'm sticking to bash.
+   [^1]: I don't use zsh anymore, I just haven't gotten around to deleting it since I'm still on the fence.
