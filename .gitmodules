@@ -10,3 +10,6 @@
 [submodule "nvim/.config/neovim"]
 	path = nvim/.config/neovim
 	url = https://github.com/neovim/neovim
+[submodule "ruby.nvim/.config/neovim/kakvim"]
+	path = ruby.nvim/.config/neovim/kakvim
+	url = https://github.com/kuntoaji/kakvim

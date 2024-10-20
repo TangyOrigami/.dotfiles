@@ -3,6 +3,7 @@
 # for examples
 # ALIASES
 alias vim="~/.config/neovim/build/bin/nvim -u ~/.config/neovim/kickstart.nvim/init.lua"
+alias rim="~/.config/neovim/build/bin/nvim -u ~/.config/neovim/kakvim/nvim/init.vim"
 alias nvim="~/.config/neovim/build/bin/nvim -u ~/.config/neovim/kickstart.nvim/init.lua"
 alias tx="tmux"
 alias g="git"
