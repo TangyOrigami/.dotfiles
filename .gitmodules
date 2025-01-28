@@ -13,3 +13,6 @@
 [submodule "ruby.nvim/.config/neovim/kakvim"]
 	path = ruby.nvim/.config/neovim/kakvim
 	url = https://github.com/kuntoaji/kakvim
+[submodule "TangyOrigami/kickstart.nvim"]
+	path = TangyOrigami/kickstart.nvim
+	url = https://github.com/TangyOrigami/kickstart.nvim
