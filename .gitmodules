@@ -16,3 +16,6 @@
 [submodule "TangyOrigami/kickstart.nvim"]
 	path = TangyOrigami/kickstart.nvim
 	url = https://github.com/TangyOrigami/kickstart.nvim
+[submodule "kickstart.nvim"]
+	path = kickstart.nvim
+	url = https://github.com/TangyOrigami/kickstart.nvim
