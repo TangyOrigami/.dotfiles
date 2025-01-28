@@ -2,14 +2,19 @@
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 # ALIASES
+
+export PATH="$PATH:/home/womba/.local/bin"
+alias gob="~/go/bin/go-blueprint"
 alias vim="~/.config/neovim/build/bin/nvim -u ~/.config/neovim/kickstart.nvim/init.lua"
 alias rim="~/.config/neovim/build/bin/nvim -u ~/.config/neovim/kakvim/nvim/init.vim"
+alias pim="~/.config/neovim/build/bin/nvim -u ~/.config/neovim/eco.vim/init.lua"
 alias nvim="~/.config/neovim/build/bin/nvim -u ~/.config/neovim/kickstart.nvim/init.lua"
 alias tx="tmux"
 alias g="git"
 alias mac="~/run-macos.sh"
 # This is useful if you're using WSL and you change files interchangeably between WINDOWS and WSL
 alias win="echo /mnt/c/Users/"
+alias py="python3"
 
 # If not running interactively, don't do anything
 case $- in
@@ -127,3 +132,5 @@ fi
 . "$HOME/.asdf/asdf.sh"
 . "$HOME/.asdf/completions/asdf.bash"
 export EDITOR="nvim"
+export PATH="/home/womba/.config/herd-lite/bin:$PATH"
+export PHP_INI_SCAN_DIR="/home/womba/.config/herd-lite/bin:$PHP_INI_SCAN_DIR"
