@@ -55,4 +55,12 @@ To install these dotfiles on your system, follow these steps:
    source ~/.dotfiles/zsh/.zshrc.pre-oh-my-zsh
    ```
 
+## TOOD
+1. Add Nerd Font
+
+2. Add nvim-notify
+
+3. profit?????
+
+
    [^1]: I don't use zsh anymore, I just haven't gotten around to deleting it since I'm still on the fence.
