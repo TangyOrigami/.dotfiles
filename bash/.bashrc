@@ -5,9 +5,10 @@
 
 export PATH="$PATH:/home/womba/.local/bin"
 alias gob="~/go/bin/go-blueprint"
+alias gor="~/go/bin/goravel"
+alias air="~/go/bin/air"
+alias exp="~/go/bin/expenseowl"
 alias vim="~/.config/neovim/build/bin/nvim -u ~/.config/neovim/kickstart.nvim/init.lua"
-alias rim="~/.config/neovim/build/bin/nvim -u ~/.config/neovim/kakvim/nvim/init.vim"
-alias pim="~/.config/neovim/build/bin/nvim -u ~/.config/neovim/eco.vim/init.lua"
 alias nvim="~/.config/neovim/build/bin/nvim -u ~/.config/neovim/kickstart.nvim/init.lua"
 alias tx="tmux"
 alias g="git"
@@ -134,3 +135,17 @@ fi
 export EDITOR="nvim"
 export PATH="/home/womba/.config/herd-lite/bin:$PATH"
 export PHP_INI_SCAN_DIR="/home/womba/.config/herd-lite/bin:$PHP_INI_SCAN_DIR"
+
+# fnm
+FNM_PATH="/home/womba/.local/share/fnm"
+if [ -d "$FNM_PATH" ]; then
+  export PATH="$FNM_PATH:$PATH"
+  eval "`fnm env`"
+fi
+
+# fnm
+FNM_PATH="/home/womba/.local/share/fnm"
+if [ -d "$FNM_PATH" ]; then
+  export PATH="$FNM_PATH:$PATH"
+  eval "`fnm env`"
+fi
