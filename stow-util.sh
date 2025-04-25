@@ -6,6 +6,7 @@ sourceable=("bash" "tmux")
 
 packages=$(ls -d */)
 
+
 for package in $packages; do
     package_name="${package%/}"
     stow "$package_name"
