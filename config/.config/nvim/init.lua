@@ -141,6 +141,28 @@ vim.keymap.set("n", "<leader>9s", _99.search, { desc = "99: search project" })
 vim.keymap.set("n", "<leader>9o", _99.open, { desc = "99: open last result" })
 vim.keymap.set("n", "<leader>9x", _99.stop_all_requests, { desc = "99: stop all requests" })
 
+-- 99.nvim Autocommands
+vim.api.nvim_create_autocmd('VimEnter', {
+    callback = function()
+        local gitignore = vim.fn.getcwd() .. '/.gitignore'
+        local entry = 'tmp/'
+        local found = false
+
+        if vim.fn.filereadable(gitignore) == 1 then
+            for _, line in ipairs(vim.fn.readfile(gitignore)) do
+                if line == entry then
+                    found = true
+                    break
+                end
+            end
+        end
+
+        if not found then
+            vim.fn.writefile({ entry }, gitignore, 'a')
+        end
+    end
+})
+
 -- Telescope model/provider switcher (since you already have telescope)
 vim.keymap.set("n", "<leader>9m", function()
 	require("99.extensions.telescope").select_model()
