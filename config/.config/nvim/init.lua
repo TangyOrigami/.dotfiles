@@ -4,6 +4,7 @@ vim.o.relativenumber = true
 vim.o.signcolumn = 'yes:1'
 vim.o.confirm = true
 vim.o.scrolloff = 10
+vim.o.winborder = 'rounded'
 
 -- Highlight when yanking
 vim.api.nvim_create_autocmd('TextYankPost', {
@@ -28,10 +29,11 @@ vim.pack.add {
 	{ src = 'https://github.com/nvim-lua/plenary.nvim' },
 	{ src = 'https://github.com/nvim-telescope/telescope.nvim' },
 	{ src = 'https://github.com/nvim-mini/mini.nvim' },
+	{ src = 'https://github.com/ThePrimeagen/99' },
 }
 
 -- Oil.nvim
-require("oil").setup()
+require("oil").setup({ view_options = { show_hidden = true } })
 vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
 
 -- Mason.nvim
@@ -48,6 +50,37 @@ vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Telescope: help t
 -- Mini.nvim
 require('mini.ai').setup { n_lines = 500 }
 require('mini.surround').setup()
+local miniclue = require('mini.clue')
+miniclue.setup({
+    triggers = {
+        { mode = 'n', keys = '<leader>' },
+        { mode = 'v', keys = '<leader>' },
+        { mode = 'n', keys = 'g' },
+        { mode = 'n', keys = '[' },
+        { mode = 'n', keys = ']' },
+        { mode = 'n', keys = '<C-w>' },
+        { mode = 'i', keys = '<C-x>' },
+    },
+    clues = {
+        -- Group labels
+        { mode = 'n', keys = '<leader>9', desc = '+99 AI' },
+        { mode = 'v', keys = '<leader>9', desc = '+99 AI' },
+        { mode = 'n', keys = '<leader>f', desc = '+find/format' },
+        { mode = 'n', keys = '<leader>g', desc = '+grep' },
+        { mode = 'n', keys = '<leader>d', desc = '+diagnostics/symbols' },
+        { mode = 'n', keys = '<leader>r', desc = '+refactor' },
+        { mode = 'n', keys = '<leader>c', desc = '+code' },
+        -- Built-in clue sets
+        miniclue.gen_clues.builtin_completion(),
+        miniclue.gen_clues.g(),
+        miniclue.gen_clues.windows(),
+        miniclue.gen_clues.z(),
+    },
+    window = {
+        delay = 300,   -- ms before popup appears
+        config = { border = 'rounded' },
+    },
+})
 
 vim.api.nvim_create_autocmd('FileType', {
 	pattern = { '<filetype>' },
@@ -66,7 +99,7 @@ require('kanagawa').setup({
 	transparent = false, -- do not set background color
 	dimInactive = true, -- dim inactive window `:h hl-NormalNC`
 	terminalColors = true, -- define vim.g.terminal_color_{0,17}
-	colors = {         -- add/modify theme and palette colors
+	colors = {      -- add/modify theme and palette colors
 		palette = {},
 		theme = { wave = {}, lotus = {}, dragon = {}, all = {} },
 	},
@@ -80,12 +113,41 @@ require('kanagawa').setup({
 		}
 	end,
 	theme = "dragon", -- Load "wave" theme
-	background = {   -- map the value of 'background' option to a theme
+	background = { -- map the value of 'background' option to a theme
 		dark = "dragon", -- try "dragon" !
 		light = "wave"
 	},
 })
 vim.cmd("colorscheme kanagawa")
+
+-- 99 (AI agent via Claude Code)
+local _99 = require("99")
+_99.setup({
+	provider = _99.Providers.ClaudeCodeProvider,
+	model = "claude-sonnet-4-5",
+	tmp_dir = "./tmp",
+	md_files = { "AGENT.md" },
+	completion = {
+		source = "native", -- works with built-in completion, no cmp/blink needed
+	},
+	logger = {
+		print_on_error = true,
+	},
+})
+
+-- 99 keymaps
+vim.keymap.set("v", "<leader>9v", _99.visual, { desc = "99: edit visual selection" })
+vim.keymap.set("n", "<leader>9s", _99.search, { desc = "99: search project" })
+vim.keymap.set("n", "<leader>9o", _99.open, { desc = "99: open last result" })
+vim.keymap.set("n", "<leader>9x", _99.stop_all_requests, { desc = "99: stop all requests" })
+
+-- Telescope model/provider switcher (since you already have telescope)
+vim.keymap.set("n", "<leader>9m", function()
+	require("99.extensions.telescope").select_model()
+end, { desc = "99: select model" })
+vim.keymap.set("n", "<leader>9p", function()
+	require("99.extensions.telescope").select_provider()
+end, { desc = "99: select provider" })
 
 -- LSP + Completion
 vim.api.nvim_create_autocmd('LspAttach', {
@@ -161,4 +223,3 @@ vim.diagnostic.config({
 -- LSP servers
 vim.lsp.enable('gopls')
 vim.lsp.enable('lua_ls')
-
