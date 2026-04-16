@@ -7,6 +7,8 @@ vim.o.scrolloff = 10
 vim.o.winborder = 'rounded'
 vim.opt.clipboard = 'unnamedplus'
 
+vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>', { silent = true })
+
 -- Highlight when yanking
 vim.api.nvim_create_autocmd('TextYankPost', {
 	desc = 'Highlight when yanking (copying) text',
