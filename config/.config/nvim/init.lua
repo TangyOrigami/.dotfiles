@@ -5,6 +5,7 @@ vim.o.signcolumn = 'yes:1'
 vim.o.confirm = true
 vim.o.scrolloff = 10
 vim.o.winborder = 'rounded'
+vim.opt.clipboard = 'unnamedplus'
 
 -- Highlight when yanking
 vim.api.nvim_create_autocmd('TextYankPost', {
