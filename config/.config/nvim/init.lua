@@ -46,9 +46,9 @@ require("mason").setup()
 require("telescope").setup()
 local builtin = require("telescope.builtin")
 vim.keymap.set("n", "<leader>sf", builtin.find_files, { desc = "Telescope: find files" })
-vim.keymap.set("n", "<leader>gf", builtin.live_grep, { desc = "Telescope: live grep" })
-vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Telescope: buffers" })
-vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Telescope: help tags" })
+vim.keymap.set("n", "<leader>sg", builtin.live_grep, { desc = "Telescope: live grep" })
+vim.keymap.set("n", "<leader>sb", builtin.buffers, { desc = "Telescope: buffers" })
+vim.keymap.set("n", "<leader>sh", builtin.help_tags, { desc = "Telescope: help tags" })
 
 -- Mini.nvim
 require('mini.ai').setup { n_lines = 500 }
@@ -80,7 +80,7 @@ miniclue.setup({
         miniclue.gen_clues.z(),
     },
     window = {
-        delay = 300,   -- ms before popup appears
+        delay = 150,   -- ms before popup appears
         config = { border = 'rounded' },
     },
 })
