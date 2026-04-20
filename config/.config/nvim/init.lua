@@ -15,11 +15,18 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 	callback = function() vim.hl.on_yank() end,
 })
 
+-- Autoformat after write
+vim.api.nvim_create_autocmd('BufWritePre', {
+	callback = function()
+		vim.lsp.buf.format({ async = false })
+	end
+})
+
 -- Sync OS and Neovim Clipboard
 vim.schedule(function() vim.o.clipboard = 'unnamedplus' end)
 
 -- Completion UI options
-vim.o.completeopt = 'menuone,noselect,popup'
+vim.o.completeopt = 'menuone,noinsert,popup'
 vim.o.pumborder = 'rounded'
 vim.o.pummaxwidth = 40
 
@@ -55,45 +62,51 @@ require('mini.ai').setup { n_lines = 500 }
 require('mini.surround').setup()
 local miniclue = require('mini.clue')
 miniclue.setup({
-    triggers = {
-        { mode = 'n', keys = '<leader>' },
-        { mode = 'v', keys = '<leader>' },
-        { mode = 'n', keys = 'g' },
-        { mode = 'n', keys = '[' },
-        { mode = 'n', keys = ']' },
-        { mode = 'n', keys = '<C-w>' },
-        { mode = 'i', keys = '<C-x>' },
-    },
-    clues = {
-        -- Group labels
-        { mode = 'n', keys = '<leader>9', desc = '+99 AI' },
-        { mode = 'v', keys = '<leader>9', desc = '+99 AI' },
-        { mode = 'n', keys = '<leader>f', desc = '+find/format' },
-        { mode = 'n', keys = '<leader>g', desc = '+grep' },
-        { mode = 'n', keys = '<leader>d', desc = '+diagnostics/symbols' },
-        { mode = 'n', keys = '<leader>r', desc = '+refactor' },
-        { mode = 'n', keys = '<leader>c', desc = '+code' },
-        -- Built-in clue sets
-        miniclue.gen_clues.builtin_completion(),
-        miniclue.gen_clues.g(),
-        miniclue.gen_clues.windows(),
-        miniclue.gen_clues.z(),
-    },
-    window = {
-        delay = 150,   -- ms before popup appears
-        config = { border = 'rounded' },
-    },
+	triggers = {
+		{ mode = 'n', keys = '<leader>' },
+		{ mode = 'v', keys = '<leader>' },
+		{ mode = 'n', keys = 'g' },
+		{ mode = 'n', keys = '[' },
+		{ mode = 'n', keys = ']' },
+		{ mode = 'n', keys = '<C-w>' },
+		{ mode = 'i', keys = '<C-x>' },
+	},
+	clues = {
+		-- Group labels
+		{ mode = 'n', keys = '<leader>9', desc = '+99 AI' },
+		{ mode = 'v', keys = '<leader>9', desc = '+99 AI' },
+		{ mode = 'n', keys = '<leader>f', desc = '+find/format' },
+		{ mode = 'n', keys = '<leader>g', desc = '+grep' },
+		{ mode = 'n', keys = '<leader>d', desc = '+diagnostics/symbols' },
+		{ mode = 'n', keys = '<leader>r', desc = '+refactor' },
+		{ mode = 'n', keys = '<leader>c', desc = '+code' },
+
+		-- Built-in clue sets
+		miniclue.gen_clues.builtin_completion(),
+		miniclue.gen_clues.g(),
+		miniclue.gen_clues.windows(),
+		miniclue.gen_clues.z(),
+	},
+	window = {
+		delay = 150,
+		config = {
+			border = 'rounded',
+			width = 'auto',
+			anchor = 'SW',
+		},
+	},
+})
+
+-- Treesitter Autocmd
+vim.api.nvim_create_autocmd('FileType', {
+	pattern = { 'svelte', 'javascript', 'typescript', 'lua', 'go', 'html', 'css' },
+	callback = function() vim.treesitter.start() end,
 })
 
 vim.api.nvim_create_autocmd('FileType', {
-    pattern = { 'svelte', 'javascript', 'typescript', 'lua', 'go', 'html', 'css' },
-    callback = function() vim.treesitter.start() end,
-})
-
-vim.api.nvim_create_autocmd('FileType', {
-    pattern = 'svelte',
-    callback = function()
-        vim.treesitter.query.set('svelte', 'highlights', [[
+	pattern = 'svelte',
+	callback = function()
+		vim.treesitter.query.set('svelte', 'highlights', [[
             (tag_name) @tag
             (attribute_name) @attribute
             (quoted_attribute_value) @string
@@ -103,7 +116,7 @@ vim.api.nvim_create_autocmd('FileType', {
             (text) @markup.raw
             (doctype) @keyword
         ]])
-    end
+	end
 })
 
 -- Kanagawa.nvim
@@ -162,24 +175,24 @@ vim.keymap.set("n", "<leader>9x", _99.stop_all_requests, { desc = "99: stop all 
 
 -- 99.nvim Autocommands
 vim.api.nvim_create_autocmd('VimEnter', {
-    callback = function()
-        local gitignore = vim.fn.getcwd() .. '/.gitignore'
-        local entry = 'tmp/'
-        local found = false
+	callback = function()
+		local gitignore = vim.fn.getcwd() .. '/.gitignore'
+		local entry = 'tmp/'
+		local found = false
 
-        if vim.fn.filereadable(gitignore) == 1 then
-            for _, line in ipairs(vim.fn.readfile(gitignore)) do
-                if line == entry then
-                    found = true
-                    break
-                end
-            end
-        end
+		if vim.fn.filereadable(gitignore) == 1 then
+			for _, line in ipairs(vim.fn.readfile(gitignore)) do
+				if line == entry then
+					found = true
+					break
+				end
+			end
+		end
 
-        if not found then
-            vim.fn.writefile({ entry }, gitignore, 'a')
-        end
-    end
+		if not found then
+			vim.fn.writefile({ entry }, gitignore, 'a')
+		end
+	end
 })
 
 -- Telescope model/provider switcher (since you already have telescope)
@@ -252,7 +265,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
 vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, { desc = "Diagnostics: show line" })
 vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Diagnostics: location list" })
 vim.keymap.set("n", "[d", function() vim.diagnostic.jump({ count = -1 }) end, { desc = "Diagnostics: previous" })
-vim.keymap.set("n", "]d", function() vim.diagnostic.jump({ count = 1 }) end,  { desc = "Diagnostics: next" })
+vim.keymap.set("n", "]d", function() vim.diagnostic.jump({ count = 1 }) end, { desc = "Diagnostics: next" })
 vim.diagnostic.config({
 	virtual_text = true,
 	signs = true,
@@ -263,14 +276,14 @@ vim.diagnostic.config({
 
 -- LSP servers
 vim.lsp.config['svelte'] = {
-    cmd = { 'svelteserver', '--stdio' },
-    filetypes = { 'svelte' },
-    root_markers = { 'svelte.config.js', 'svelte.config.ts', 'package.json', '.git' },
+	cmd = { 'svelteserver', '--stdio' },
+	filetypes = { 'svelte' },
+	root_markers = { 'svelte.config.js', 'svelte.config.ts', 'package.json', '.git' },
 }
 vim.lsp.config['ts_ls'] = {
-    cmd = { 'typescript-language-server', '--stdio' },
-    filetypes = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' },
-    root_markers = { 'tsconfig.json', 'jsconfig.json', 'package.json', '.git' },
+	cmd = { 'typescript-language-server', '--stdio' },
+	filetypes = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' },
+	root_markers = { 'tsconfig.json', 'jsconfig.json', 'package.json', '.git' },
 }
 
 -- LSP Enable
