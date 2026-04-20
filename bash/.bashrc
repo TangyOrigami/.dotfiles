@@ -3,11 +3,19 @@
 # for examples
 
 alias vim="nvim"
+
 alias tx="tmux"
+
+alias py='python3'
 
 alias gs="git status"
 alias ga="git add ."
 alias gc="git commit -m "
+alias gp="git push origin "
+
+mkcd() { mkdir -p "$1" && cd "$1"; }
+
+export PATH="$HOME/.cargo/bin:$PATH"
 
 # If not running interactively, don't do anything
 case $- in

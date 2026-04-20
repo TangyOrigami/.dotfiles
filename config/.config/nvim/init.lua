@@ -5,7 +5,6 @@ vim.o.signcolumn = 'yes:1'
 vim.o.confirm = true
 vim.o.scrolloff = 10
 vim.o.winborder = 'rounded'
-vim.opt.clipboard = 'unnamedplus'
 
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>', { silent = true })
 
@@ -33,6 +32,7 @@ vim.pack.add {
 	{ src = 'https://github.com/nvim-telescope/telescope.nvim' },
 	{ src = 'https://github.com/nvim-mini/mini.nvim' },
 	{ src = 'https://github.com/ThePrimeagen/99' },
+	{ src = 'https://github.com/nvim-treesitter/nvim-treesitter' },
 }
 
 -- Oil.nvim
@@ -86,8 +86,24 @@ miniclue.setup({
 })
 
 vim.api.nvim_create_autocmd('FileType', {
-	pattern = { '<filetype>' },
-	callback = function() vim.treesitter.start() end,
+    pattern = { 'svelte', 'javascript', 'typescript', 'lua', 'go', 'html', 'css' },
+    callback = function() vim.treesitter.start() end,
+})
+
+vim.api.nvim_create_autocmd('FileType', {
+    pattern = 'svelte',
+    callback = function()
+        vim.treesitter.query.set('svelte', 'highlights', [[
+            (tag_name) @tag
+            (attribute_name) @attribute
+            (quoted_attribute_value) @string
+            (attribute_value) @string
+            (self_closing_tag (tag_name) @tag)
+            (comment) @comment
+            (text) @markup.raw
+            (doctype) @keyword
+        ]])
+    end
 })
 
 -- Kanagawa.nvim
@@ -234,9 +250,9 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
 -- Diagnostics
 vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, { desc = "Diagnostics: show line" })
-vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Diagnostics: previous" })
-vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Diagnostics: next" })
 vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Diagnostics: location list" })
+vim.keymap.set("n", "[d", function() vim.diagnostic.jump({ count = -1 }) end, { desc = "Diagnostics: previous" })
+vim.keymap.set("n", "]d", function() vim.diagnostic.jump({ count = 1 }) end,  { desc = "Diagnostics: next" })
 vim.diagnostic.config({
 	virtual_text = true,
 	signs = true,
@@ -246,5 +262,19 @@ vim.diagnostic.config({
 })
 
 -- LSP servers
+vim.lsp.config['svelte'] = {
+    cmd = { 'svelteserver', '--stdio' },
+    filetypes = { 'svelte' },
+    root_markers = { 'svelte.config.js', 'svelte.config.ts', 'package.json', '.git' },
+}
+vim.lsp.config['ts_ls'] = {
+    cmd = { 'typescript-language-server', '--stdio' },
+    filetypes = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' },
+    root_markers = { 'tsconfig.json', 'jsconfig.json', 'package.json', '.git' },
+}
+
+-- LSP Enable
+vim.lsp.enable('svelte')
+vim.lsp.enable('ts_ls')
 vim.lsp.enable('gopls')
 vim.lsp.enable('lua_ls')
