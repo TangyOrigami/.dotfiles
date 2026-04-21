@@ -1,32 +1,42 @@
 #!/bin/bash
 
 blacklist=(
-    ".git"
-    ".gitsubmodules"
-    ".gitignore"
-    "bash"
-    "tmux"
-    "wsl-term"
+	".git"
+	".gitsubmodules"
+	".gitignore"
+	"tmux"
+	"wsl-term"
+	"tmp"
 )
 
 cd ~/.dotfiles || exit
 packages=$(ls -d */)
 
 for package in $packages; do
-    package_name="${package%/}"
+	package_name="${package%/}"
 
-    # Check if package is blacklisted
     skip=false
     for ignored in "${blacklist[@]}"; do
-        if [[ "$package_name" == "$ignored" ]]; then
-            skip=true
-            break
-        fi
+	    if [[ "$package_name" == "$ignored" ]]; then
+		    skip=true
+		    break
+	    fi
     done
 
     if $skip; then
-        echo "Skipped:  $package_name"
-        continue
+	    echo "Skipped:  $package_name"
+	    continue
+    fi
+
+    if [[ "$package" == "bash/" ]]; then
+	    stow "$package_name"
+	    for file in "$package_name"/.*; do
+		    file=$(basename "$file")
+		    [[ "$file" == "." || "$file" == ".." ]] && continue
+		    [[ -f ~/"$file" ]] && source ~/"$file"
+	    done
+	    echo "Stowed & Sourced: $package_name"
+	    continue
     fi
 
     stow "$package_name"
