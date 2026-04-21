@@ -38,14 +38,14 @@ vim.api.nvim_create_autocmd('FileType', {
 	pattern = 'svelte',
 	callback = function()
 		vim.treesitter.query.set('svelte', 'highlights', [[
-			(tag_name) @tag
-			(attribute_name) @attribute
-			(quoted_attribute_value) @string
-			(attribute_value) @string
-			(self_closing_tag (tag_name) @tag)
-			(comment) @comment
-			(text) @markup.raw
-			(doctype) @keyword
+		(tag_name) @tag
+		(attribute_name) @attribute
+		(quoted_attribute_value) @string
+		(attribute_value) @string
+		(self_closing_tag (tag_name) @tag)
+		(comment) @comment
+		(text) @markup.raw
+		(doctype) @keyword
 		]])
 	end,
 })

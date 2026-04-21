@@ -7,6 +7,7 @@ blacklist=(
 	"tmux"
 	"wsl-term"
 	"tmp"
+	"kickstart.nvim"
 )
 
 cd ~/.dotfiles || exit
