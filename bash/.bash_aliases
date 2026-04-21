@@ -1,5 +1,6 @@
 # Vim
 alias vim="nvim"
+alias vimd="nvim -d"
 
 # Tmux
 alias tx="tmux"
