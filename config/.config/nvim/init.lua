@@ -194,10 +194,11 @@ vim.lsp.config['ts_ls'] = {
 	root_markers = { 'tsconfig.json', 'jsconfig.json', 'package.json', '.git' },
 }
 
+vim.lsp.enable('lua_ls')
+vim.lsp.enable('basedpyright')
+vim.lsp.enable('gopls')
 vim.lsp.enable('svelte')
 vim.lsp.enable('ts_ls')
-vim.lsp.enable('gopls')
-vim.lsp.enable('lua_ls')
 
 vim.api.nvim_create_autocmd('LspAttach', {
 	desc = 'LSP keymaps and completion',
