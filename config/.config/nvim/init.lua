@@ -15,6 +15,14 @@ vim.schedule(function() vim.o.clipboard = 'unnamedplus' end)
 -- KEYMAPS
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>', { silent = true })
 
+-- Panes
+vim.keymap.set('n', '<leader>sv', '<cmd>vs<CR>', { desc = 'Vertical Split Screen' })
+vim.keymap.set('n', '<leader>sh', '<cmd>sp<CR>', { desc = 'Horizontal Split Screen' })
+vim.keymap.set('n', '<C-h>', '<C-w>h', { desc = 'Horizontal Split Screen' })
+vim.keymap.set('n', '<C-j>', '<C-w>j', { desc = 'Horizontal Split Screen' })
+vim.keymap.set('n', '<C-k>', '<C-w>k', { desc = 'Horizontal Split Screen' })
+vim.keymap.set('n', '<C-l>', '<C-w>l', { desc = 'Horizontal Split Screen' })
+
 -- AUTOCMDS
 vim.api.nvim_create_autocmd('TextYankPost', {
 	desc = 'Highlight when yanking',
@@ -69,9 +77,11 @@ vim.api.nvim_create_autocmd('VimEnter', {
 
 -- PLUGINS
 vim.pack.add {
-	'https://github.com/stevearc/oil.nvim',
-	'https://github.com/rebelot/kanagawa.nvim',
-	'https://github.com/neovim/nvim-lspconfig',
+	{ src = 'https://github.com/stevearc/oil.nvim' },
+	{ src = 'https://github.com/rebelot/kanagawa.nvim' },
+	{ src = 'https://github.com/neovim/nvim-lspconfig' },
+	{ src = 'https://github.com/JezerM/oil-lsp-diagnostics.nvim' },
+	{ src = 'https://github.com/malewicz1337/oil-git.nvim' },
 	{ src = 'https://github.com/mason-org/mason.nvim' },
 	{ src = 'https://github.com/nvim-lua/plenary.nvim' },
 	{ src = 'https://github.com/nvim-telescope/telescope.nvim' },
@@ -112,8 +122,86 @@ vim.cmd('colorscheme kanagawa')
 require('lualine').setup({ options = { theme = 'kanagawa' } })
 
 -- Oil --
-require('oil').setup({ view_options = { show_hidden = true } })
+require('oil').setup({
+	view_options = { show_hidden = true },
+	skip_confirm_for_simple_edits = true,
+	lsp_file_methods = {
+		enabled = true,
+		timeout_ms = 1000,
+		autosave_changes = false,
+	},
+	keymaps = {
+		["g?"] = { "actions.show_help", mode = "n" },
+		["<CR>"] = "actions.select",
+		["<C-as>"] = { "actions.select", opts = { vertical = true } },
+		["<C-ah>"] = { "actions.select", opts = { horizontal = true } },
+		["<C-at>"] = { "actions.select", opts = { tab = true } },
+		["<C-ap>"] = "actions.preview",
+		["<C-ac>"] = { "actions.close", mode = "n" },
+		["<C-al>"] = "actions.refresh",
+		["-"] = { "actions.parent", mode = "n" },
+		["_"] = { "actions.open_cwd", mode = "n" },
+		["`"] = { "actions.cd", mode = "n" },
+		["g~"] = { "actions.cd", opts = { scope = "tab" }, mode = "n" },
+		["gs"] = { "actions.change_sort", mode = "n" },
+		["gx"] = "actions.open_external",
+		["g."] = { "actions.toggle_hidden", mode = "n" },
+		["g\\"] = { "actions.toggle_trash", mode = "n" },
+	},
+	use_default_keymaps = false,
+
+})
 vim.keymap.set('n', '-', '<CMD>Oil<CR>', { desc = 'Oil: open parent directory' })
+
+-- Oil-LSP-Diagnostics
+require("oil-lsp-diagnostics").setup({
+	count = true,
+	parent_dirs = true,
+	diagnostic_colors = {
+		error = "DiagnosticError",
+		warn  = "DiagnosticWarn",
+		info  = "DiagnosticInfo",
+		hint  = "DiagnosticHint",
+	},
+	diagnostic_symbols = {
+		error = "E",
+		warn = "W",
+		info = "I",
+		hint = "H",
+	}
+})
+
+-- Oil-Git
+require("oil-git").setup({
+	debounce_ms = 50,
+	symbol_position = "signcolumn",
+	can_use_signcolumn = "yes:1",
+	debug = "verbose",
+
+	symbols = {
+		file = {
+			added = "+",
+			modified = "~",
+			renamed = "->",
+			deleted = "D",
+			copied = "C",
+			conflict = "!",
+			untracked = "?",
+			ignored = "o"
+		},
+		directory = {
+			added = "*",
+			modified = "*",
+			renamed = "*",
+			deleted = "*",
+			copied = "*",
+			conflict = "!",
+			untracked = "*",
+			ignored = "o"
+		},
+	},
+})
+vim.keymap.set('n', '<leader>rr', '<CMD>lua require("oil-git").refresh()<CR>', { desc = 'Oil-Git: Manual refresh' })
 
 -- Mason --
 require('mason').setup()
@@ -124,7 +212,7 @@ local builtin = require('telescope.builtin')
 vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = 'Telescope: find files' })
 vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = 'Telescope: live grep' })
 vim.keymap.set('n', '<leader>sb', builtin.buffers, { desc = 'Telescope: buffers' })
-vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = 'Telescope: help tags' })
+vim.keymap.set('n', '<leader>h', builtin.help_tags, { desc = 'Telescope: help tags' })
 
 -- Mini --
 require('mini.ai').setup({ n_lines = 500 })
@@ -230,7 +318,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
 		vim.keymap.set('n', 'gr', builtin.lsp_references,
 			vim.tbl_extend('force', opts, { desc = 'LSP: references' }))
 		vim.keymap.set('n', 'K', vim.lsp.buf.hover, vim.tbl_extend('force', opts, { desc = 'LSP: hover docs' }))
-		vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help,
+		vim.keymap.set('n', '<C-b>', vim.lsp.buf.signature_help,
 			vim.tbl_extend('force', opts, { desc = 'LSP: signature help' }))
 		vim.keymap.set('n', '<leader>ds', builtin.lsp_document_symbols,
 			vim.tbl_extend('force', opts, { desc = 'LSP: document symbols' }))
