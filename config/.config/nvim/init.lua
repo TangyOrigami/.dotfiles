@@ -6,7 +6,6 @@ vim.o.signcolumn     = 'yes:1'
 vim.o.confirm        = true
 vim.o.scrolloff      = 10
 vim.o.winborder      = 'rounded'
-vim.o.completeopt    = 'menuone,noinsert,popup'
 vim.o.pumborder      = 'rounded'
 vim.o.pummaxwidth    = 40
 
@@ -89,6 +88,9 @@ vim.pack.add {
 	{ src = 'https://github.com/ThePrimeagen/99' },
 	{ src = 'https://github.com/nvim-treesitter/nvim-treesitter' },
 	{ src = 'https://github.com/nvim-lualine/lualine.nvim' },
+	{ src = 'https://github.com/rafamadriz/friendly-snippets' },
+	{ src = 'https://github.com/saghen/blink.lib' },
+	{ src = 'https://github.com/saghen/blink.cmp' },
 }
 
 -- Kanagawa --
@@ -149,7 +151,6 @@ require('oil').setup({
 		["g\\"] = { "actions.toggle_trash", mode = "n" },
 	},
 	use_default_keymaps = false,
-
 })
 vim.keymap.set('n', '-', '<CMD>Oil<CR>', { desc = 'Oil: open parent directory' })
 
@@ -289,24 +290,9 @@ vim.lsp.enable('svelte')
 vim.lsp.enable('ts_ls')
 
 vim.api.nvim_create_autocmd('LspAttach', {
-	desc = 'LSP keymaps and completion',
+	desc = 'LSP keymaps',
 	callback = function(ev)
-		local client = vim.lsp.get_client_by_id(ev.data.client_id)
-		local opts   = { buffer = ev.buf }
-
-		-- Completion
-		if client and client:supports_method('textDocument/completion') then
-			vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = true })
-		end
-
-		-- Completion navigation
-		vim.keymap.set('i', '<C-Space>', vim.lsp.completion.get, opts)
-		vim.keymap.set('i', '<Tab>', function() return vim.fn.pumvisible() == 1 and '<C-n>' or '<Tab>' end,
-			{ buffer = ev.buf, expr = true })
-		vim.keymap.set('i', '<S-Tab>', function() return vim.fn.pumvisible() == 1 and '<C-p>' or '<S-Tab>' end,
-			{ buffer = ev.buf, expr = true })
-		vim.keymap.set('i', '<CR>', function() return vim.fn.pumvisible() == 1 and '<C-y>' or '<CR>' end,
-			{ buffer = ev.buf, expr = true })
+		local opts = { buffer = ev.buf }
 
 		-- Navigation
 		vim.keymap.set('n', 'gd', vim.lsp.buf.definition,
@@ -331,6 +317,15 @@ vim.api.nvim_create_autocmd('LspAttach', {
 		vim.keymap.set('n', '<leader>f', function() vim.lsp.buf.format({ async = true }) end,
 			vim.tbl_extend('force', opts, { desc = 'LSP: format buffer' }))
 	end,
+})
+
+-- Blink.cmp
+require('blink.cmp').setup({
+	completion = { documentation = { auto_show = true } },
+	keymap = { preset = 'default' },
+	sources = {
+		default = { 'lsp', 'path', 'snippets', 'buffer' },
+	},
 })
 
 -- DIAGNOSTICS
