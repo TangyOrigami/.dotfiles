@@ -119,7 +119,7 @@ require('kanagawa').setup({
 	statementStyle = { bold = true },
 	functionStyle  = {},
 	typeStyle      = {},
-	transparent    = false,
+	transparent    = true,
 	dimInactive    = true,
 	terminalColors = true,
 	colors         = { palette = {}, theme = { wave = {}, lotus = {}, dragon = {}, all = {} } },
