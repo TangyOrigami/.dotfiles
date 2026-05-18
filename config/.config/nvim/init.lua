@@ -16,6 +16,20 @@ vim.schedule(function() vim.o.clipboard = 'unnamedplus' end)
 -- KEYMAPS
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>', { silent = true })
 
+-- DIAGNOSTICS
+vim.diagnostic.config({
+	virtual_text     = true,
+	signs            = true,
+	underline        = true,
+	update_in_insert = false,
+	severity_sort    = true,
+})
+
+vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Diagnostics: show line' })
+vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Diagnostics: location list' })
+vim.keymap.set('n', '[d', function() vim.diagnostic.jump({ count = -1 }) end, { desc = 'Diagnostics: previous' })
+vim.keymap.set('n', ']d', function() vim.diagnostic.jump({ count = 1 }) end, { desc = 'Diagnostics: next' })
+
 -- PANES
 vim.keymap.set('n', '<leader>sv', '<cmd>vs<CR>', { desc = 'Vertical Split Screen' })
 vim.keymap.set('n', '<leader>sh', '<cmd>sp<CR>', { desc = 'Horizontal Split Screen' })
@@ -170,6 +184,7 @@ require('oil').setup({
 		["g\\"] = { "actions.toggle_trash", mode = "n" },
 	},
 	use_default_keymaps = false,
+	opts = {}
 })
 vim.keymap.set('n', '-', '<CMD>Oil<CR>', { desc = 'Oil: open parent directory' })
 
@@ -349,17 +364,3 @@ require('blink.cmp').setup({
 
 	signature = { enabled = true }
 })
-
--- DIAGNOSTICS
-vim.diagnostic.config({
-	virtual_text     = true,
-	signs            = true,
-	underline        = true,
-	update_in_insert = false,
-	severity_sort    = true,
-})
-
-vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Diagnostics: show line' })
-vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Diagnostics: location list' })
-vim.keymap.set('n', '[d', function() vim.diagnostic.jump({ count = -1 }) end, { desc = 'Diagnostics: previous' })
-vim.keymap.set('n', ']d', function() vim.diagnostic.jump({ count = 1 }) end, { desc = 'Diagnostics: next' })
