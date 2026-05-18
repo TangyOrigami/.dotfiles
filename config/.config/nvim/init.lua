@@ -16,7 +16,7 @@ vim.schedule(function() vim.o.clipboard = 'unnamedplus' end)
 -- KEYMAPS
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>', { silent = true })
 
--- Panes
+-- PANES
 vim.keymap.set('n', '<leader>sv', '<cmd>vs<CR>', { desc = 'Vertical Split Screen' })
 vim.keymap.set('n', '<leader>sh', '<cmd>sp<CR>', { desc = 'Horizontal Split Screen' })
 vim.keymap.set('n', '<C-h>', '<C-w>h', { desc = 'Horizontal Split Screen' })
@@ -96,7 +96,7 @@ vim.pack.add {
 	{ src = 'https://github.com/nvim-tree/nvim-web-devicons' },
 }
 
--- Kanagawa --
+-- KANAGAWA
 require('kanagawa').setup({
 	compile        = true,
 	undercurl      = true,
@@ -123,13 +123,13 @@ require('kanagawa').setup({
 })
 vim.cmd('colorscheme kanagawa')
 
--- nvim-web-devicons
+-- NVIM-WEB-DEVICONS
 require('nvim-web-devicons').setup()
 
--- Lualine --
+-- LUALINE
 require('lualine').setup({ options = { theme = 'kanagawa' } })
 
--- Oil --
+-- OIL
 require('oil').setup({
 	view_options = { show_hidden = true },
 	skip_confirm_for_simple_edits = true,
@@ -160,7 +160,7 @@ require('oil').setup({
 })
 vim.keymap.set('n', '-', '<CMD>Oil<CR>', { desc = 'Oil: open parent directory' })
 
--- Oil-LSP-Diagnostics
+-- OIL-LSP-DIAGNOSTICS
 require("oil-lsp-diagnostics").setup({
 	count = true,
 	parent_dirs = true,
@@ -178,7 +178,7 @@ require("oil-lsp-diagnostics").setup({
 	}
 })
 
--- Oil-Git
+-- OIL-GIT
 require("oil-git").setup({
 	debounce_ms = 50,
 	symbol_position = "signcolumn",
@@ -210,10 +210,8 @@ require("oil-git").setup({
 })
 vim.keymap.set('n', '<leader>rr', '<CMD>lua require("oil-git").refresh()<CR>', { desc = 'Oil-Git: Manual refresh' })
 
--- Mason --
-require('mason').setup()
 
--- Telescope --
+-- TELESCOPE
 require('telescope').setup()
 local builtin = require('telescope.builtin')
 vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = 'Telescope: find files' })
@@ -221,7 +219,7 @@ vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = 'Telescope: live g
 vim.keymap.set('n', '<leader>sb', builtin.buffers, { desc = 'Telescope: buffers' })
 vim.keymap.set('n', '<leader>h', builtin.help_tags, { desc = 'Telescope: help tags' })
 
--- Mini --
+-- MINI
 require('mini.ai').setup({ n_lines = 500 })
 require('mini.diff').setup()
 require('mini.surround').setup()
@@ -257,7 +255,7 @@ miniclue.setup({
 	},
 })
 
--- 99 --
+-- 99
 local _99 = require('99')
 _99.setup({
 	provider   = _99.Providers.ClaudeCodeProvider,
@@ -276,6 +274,9 @@ vim.keymap.set('n', '<leader>9m', function() require('99.extensions.telescope').
 	{ desc = '99: select model' })
 vim.keymap.set('n', '<leader>9p', function() require('99.extensions.telescope').select_provider() end,
 	{ desc = '99: select provider' })
+
+-- MASON
+require('mason').setup()
 
 -- LSP
 vim.lsp.config['svelte'] = {
@@ -325,13 +326,15 @@ vim.api.nvim_create_autocmd('LspAttach', {
 	end,
 })
 
--- Blink.cmp
+-- BLINK.CMP
 require('blink.cmp').setup({
-	completion = { documentation = { auto_show = true } },
 	keymap = { preset = 'default' },
+
 	sources = {
 		default = { 'lsp', 'path', 'snippets', 'buffer' },
 	},
+
+	signature = { enabled = true }
 })
 
 -- DIAGNOSTICS
