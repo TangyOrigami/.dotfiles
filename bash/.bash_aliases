@@ -22,7 +22,7 @@ alias gc="git commit -m "
 alias gp="git push origin "
 alias gf="git fetch"
 
-# Functions
+# Function
 mkcd() { mkdir -p "$1" && cd "$1"; }
 
 # Utilities
