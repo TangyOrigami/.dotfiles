@@ -4,6 +4,8 @@ alias vimd="nvim -d"
 
 # Tmux
 alias tx="tmux"
+alias txs="tmux new -s "
+alias txa="tmux a -t "
 alias tx-kill="pkill tmux"
 
 # Python
