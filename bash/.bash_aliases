@@ -26,4 +26,4 @@ alias gf="git fetch"
 mkcd() { mkdir -p "$1" && cd "$1"; }
 
 # Utilities
-alias wd='echo /mnt/c/Users/csaen/'
+alias wd='echo /mnt/c/Users/'
