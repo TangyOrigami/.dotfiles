@@ -4,6 +4,7 @@ alias vimd="nvim -d"
 
 # Tmux
 alias tx="tmux"
+alias tx-kill="pkill tmux"
 
 # Python
 alias py='python3'
