@@ -1,2 +1,5 @@
 *.yml
 tmp/
+font/.local/share/fonts/*.ttf
+*.zip
+LICENSE.*

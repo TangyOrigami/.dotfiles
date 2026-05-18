@@ -1,3 +1,5 @@
+vim.loader.enable()
+
 -- OPTIONS
 vim.g.mapleader      = " "
 vim.o.number         = true
@@ -91,6 +93,7 @@ vim.pack.add {
 	{ src = 'https://github.com/rafamadriz/friendly-snippets' },
 	{ src = 'https://github.com/saghen/blink.lib' },
 	{ src = 'https://github.com/saghen/blink.cmp' },
+	{ src = 'https://github.com/nvim-tree/nvim-web-devicons' },
 }
 
 -- Kanagawa --
@@ -119,6 +122,9 @@ require('kanagawa').setup({
 	end,
 })
 vim.cmd('colorscheme kanagawa')
+
+-- nvim-web-devicons
+require('nvim-web-devicons').setup()
 
 -- Lualine --
 require('lualine').setup({ options = { theme = 'kanagawa' } })
