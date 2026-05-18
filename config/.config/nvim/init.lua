@@ -127,7 +127,20 @@ vim.cmd('colorscheme kanagawa')
 require('nvim-web-devicons').setup()
 
 -- LUALINE
-require('lualine').setup({ options = { theme = 'kanagawa' } })
+require('lualine').setup({
+	options = {
+		theme = 'kanagawa',
+	},
+
+	sections = {
+		lualine_c = {
+			{
+				'filename',
+				path = 3,
+			}
+		}
+	}
+})
 
 -- OIL
 require('oil').setup({
