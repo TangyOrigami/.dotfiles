@@ -364,3 +364,4 @@ require('blink.cmp').setup({
 
 	signature = { enabled = true }
 })
+require('blink.cmp').build():wait(60000)
